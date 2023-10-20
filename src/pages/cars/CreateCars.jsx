@@ -2,11 +2,12 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const CreateCars = () => {
+
+
     const [carData, setCarData] = useState({
-        name: "",
         make: "",
         model: "",
-        color: "",
+        image: "",
         year: 0,
         isForSale: false
     });
@@ -16,7 +17,7 @@ const CreateCars = () => {
         console.log(carData);
         axios({
             method: "POST",
-            url: "/cars",
+            url: "/api/cars",
             data: carData // You will find this data in ***req.body*** of the route
         }).then((res) => {
             console.log(res);
@@ -27,13 +28,12 @@ const CreateCars = () => {
         <div>
             <h1>New car page</h1>
             <form onSubmit={handleSubmit}>
-                Name: <input type="text" name="name" value={carData.name} onChange={(e) => setCarData({ ...carData, name: e.target.value })} />
-                <br />
                 Make: <input type="text" name="make" value={carData.make} onChange={(e) => setCarData({ ...carData, make: e.target.value })} />
                 <br />
                 Model: <input type="text" name="model" value={carData.model} onChange={(e) => setCarData({ ...carData, model: e.target.value })} />
                 <br />
-                Color: <input type="text" name="color" value={carData.color} onChange={(e) => setCarData({ ...carData, color: e.target.value })} />
+                Image: <input type="text" name="image" value={carData.image} onChange={(e) => setCarData({ ...carData, image: e.target.value })} />
+
                 <br />
                 Year: <input type="number" name="year" value={carData.year}
                     onChange={(e) => setCarData({ ...carData, year: +e.target.value })} />

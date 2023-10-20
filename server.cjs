@@ -6,6 +6,12 @@ const cors = require("cors");
 const morgan = require("morgan");
 
 
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Something went wrong!');
+  });
+  
 const Car = require("./models/schema.jsx");
 
 app.use(cors());
@@ -22,7 +28,7 @@ app.get("/", (req, res) => {
   res.send("Welcome to my server about Cars, make a request to '/info' to learn more!");
 });
 
-app.get("/server/cars", async (req, res) => {
+app.get("/cars", async (req, res) => {
     console.log("route hit!")
     const carsFromDB = await Car.find();
 
@@ -31,7 +37,7 @@ app.get("/server/cars", async (req, res) => {
 })
 
 
-app.post("/server/cars", async (req,res) => {
+app.post("/cars", async (req,res) => {
     console.log(req.body);
     let car = req.body;
     const responseFromDB = await Car.create(car);
